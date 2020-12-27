@@ -1,25 +1,45 @@
-import logo from './logo.svg';
-import './App.css';
+import { Component } from "react";
+import { Link } from "react-router-dom";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import "./App.css";
+import dummy from "./Dummy";
+
+class App extends Component {
+  state = {
+    folders: [],
+    notes: [],
+  };
+
+  componentDidMount() {
+    setTimeout(() => this.setState(dummy), 600);
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <header>
+          <Link to="/" className="header">
+            Noteful
+          </Link>
+        </header>
+        <main>
+          <aside>
+            {this.state.folders.map((folder) => (
+              <li key={folder.id}>{folder.name}</li>
+            ))}
+          </aside>
+          <section>
+            {this.state.notes.map((note) => (
+              <div key={note.id}>
+                {note.name}
+                {note.modified}
+              </div>
+            ))}
+          </section>
+        </main>
+      </div>
+    );
+  }
 }
 
 export default App;
